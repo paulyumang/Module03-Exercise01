@@ -3,11 +3,16 @@ using Microsoft.Maui.Networking; // Corrected namespace
 using System.Net.Http;
 using System.Threading.Tasks;
 using Module02Exercise01.View; // Add this to resolve LoginPage and OfflinePage
+using System.Diagnostics;
+
 
 namespace Module02Exercise01
 {
     public partial class App : Application
     {
+
+        private const string TestUrl = "https://www.reqbin.com";
+
         public App()
         {
             InitializeComponent();
@@ -16,50 +21,26 @@ namespace Module02Exercise01
 
         protected override async void OnStart()
         {
-            base.OnStart();
-            await CheckConnectivityAsync();
-        }
-
-        protected override void OnSleep()
-        {
-            base.OnSleep();
-            Console.WriteLine("The app is in sleep mode.");
-        }
-
-        protected override void OnResume()
-        {
-            base.OnResume();
-            Console.WriteLine("The app has resumed.");
-        }
-
-        public async Task CheckConnectivityAsync()
-        {
             var current = Connectivity.NetworkAccess;
-            if (current == NetworkAccess.Internet)
+            bool isWebsiteReachable = await IsWebsiteReachable(TestUrl);
+
+            if (current == NetworkAccess.Internet && isWebsiteReachable)
             {
-                // Ping a webpage to confirm internet availability
-                if (await PingWebsiteAsync("https://reqbin.com"))
-                {
-                    MainPage = new LoginPage();
-                }
-                else
-                {
-                    MainPage = new OfflinePage();
-                }
+                MainPage = new LoginPage();  // Navigate to LoginPage if online
             }
             else
             {
-                MainPage = new OfflinePage();
+                MainPage = new OfflinePage();  // Navigate to OfflinePage if offline
             }
         }
 
-        private async Task<bool> PingWebsiteAsync(string url)
+        public async Task<bool> IsWebsiteReachable(string url) // Change this to public
         {
             try
             {
-                using (var httpClient = new HttpClient())
+                using (var client = new HttpClient())
                 {
-                    var response = await httpClient.GetAsync(url);
+                    var response = await client.GetAsync(url);
                     return response.IsSuccessStatusCode;
                 }
             }
@@ -69,4 +50,5 @@ namespace Module02Exercise01
             }
         }
     }
+
 }

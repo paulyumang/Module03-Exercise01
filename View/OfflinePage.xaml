@@ -3,11 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Module02Exercise01.View.OfflinePage"
              Title="Offline">
-    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+    
+    <StackLayout 
+        VerticalOptions="Center" 
+        HorizontalOptions="Center">
+        
         <Label Text="You are currently offline." 
                FontSize="Medium" 
                HorizontalOptions="Center" />
-        <Button Text="Retry" Clicked="OnRetryClicked" />
-        <Button Text="Close" Clicked="OnCloseClicked" />
+        
+        <Button Text="Retry" 
+                Clicked="OnRetryClicked" />
+        
+        <Button Text="Close" 
+                Clicked="OnCloseClicked" />
     </StackLayout>
 </ContentPage>

@@ -1,5 +1,6 @@
 using Microsoft.Maui.Controls;
 
+
 namespace Module02Exercise01.View
 {
     public partial class OfflinePage : ContentPage
@@ -11,7 +12,19 @@ namespace Module02Exercise01.View
 
         private async void OnRetryClicked(object sender, EventArgs e)
         {
-            await ((App)Application.Current).CheckConnectivityAsync();
+            // Access the IsWebsiteReachable and Connectivity check from App class
+            var current = Connectivity.NetworkAccess;
+            bool isWebsiteReachable = await ((App)Application.Current).IsWebsiteReachable("https://www.reqbin.com");
+
+            if (current == NetworkAccess.Internet && isWebsiteReachable)
+            {
+                await Navigation.PushAsync(new LoginPage());
+            }
+            else
+            {
+                // Stay on OfflinePage
+                await DisplayAlert("Connection Failed", "Still no internet connection.", "OK");
+            }
         }
 
         private void OnCloseClicked(object sender, EventArgs e)
