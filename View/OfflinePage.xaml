@@ -7,15 +7,9 @@
     <StackLayout 
         VerticalOptions="Center" 
         HorizontalOptions="Center">
-        
+
         <Label Text="You are currently offline." 
                FontSize="Medium" 
                HorizontalOptions="Center" />
-        
-        <Button Text="Retry" 
-                Clicked="OnRetryClicked" />
-        
-        <Button Text="Close" 
-                Clicked="OnCloseClicked" />
     </StackLayout>
 </ContentPage>

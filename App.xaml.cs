@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 using Module02Exercise01.View; // Add this to resolve LoginPage and OfflinePage
 using System.Diagnostics;
 
-
 namespace Module02Exercise01
 {
     public partial class App : Application
     {
-        private const string TestUrl = "https://www.example.com";
+        private const string TestUrl = "https://www.github.com";
 
         public App()
         {
@@ -20,11 +19,15 @@ namespace Module02Exercise01
 
         protected override async void OnStart()
         {
-            // base.OnStart(); // No need to call base for OnStart in MAUI
-
+            // Check network access
             var current = Connectivity.NetworkAccess;
+
+            // Detailed logging
+            Debug.WriteLine($"Network Access: {current}");
+
             bool isWebsiteReachable = await IsWebsiteReachable(TestUrl);
 
+            // Check if both network access and website reachability are good
             if (current == NetworkAccess.Internet && isWebsiteReachable)
             {
                 await Shell.Current.GoToAsync("//LoginPage");
@@ -47,13 +50,14 @@ namespace Module02Exercise01
             Debug.WriteLine("Application Resumed");
         }
 
-        // Change the access modifier from private to public
-        public async Task<bool> IsWebsiteReachable(string url)
+        // Updated method to handle exceptions and connectivity checks more robustly
+        private async Task<bool> IsWebsiteReachable(string url)
         {
             try
             {
                 using (var client = new HttpClient())
                 {
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0");
                     var response = await client.GetAsync(url);
                     return response.IsSuccessStatusCode;
                 }
@@ -64,4 +68,5 @@ namespace Module02Exercise01
             }
         }
     }
+    
 }
