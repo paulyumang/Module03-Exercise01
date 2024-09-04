@@ -8,8 +8,18 @@
     Title="Module02Exercise01">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate views:EmployeePage}"
-        Route="MainPage" />
+    Title="Start"
+    ContentTemplate="{DataTemplate views:LoginPage}"
+    Route="LoginPage" />
+
+    <ShellContent
+    Title="Offline"
+    ContentTemplate="{DataTemplate views:OfflinePage}"
+    Route="OfflinePage" />
+
+    <ShellContent
+    Title="Home"
+    ContentTemplate="{DataTemplate views:EmployeePage}"
+    Route="EmployeePage" />
 
 </Shell>

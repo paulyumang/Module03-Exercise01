@@ -10,53 +10,79 @@ using System.ComponentModel;
 using System.Windows.Input;
 
 namespace Module02Exercise01.ViewModel
-{ 
+{
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+
     public class EmployeeViewModel : INotifyPropertyChanged
     {
-        //Role of ViewModel
-        private Employee _employee;
-        private string _fullname; //variable to combine the FirstName and LastName into one, using Conversion
-
-        public EmployeeViewModel()
-        {
-            _employee = new Employee { FirstName = "John", LastName = "Doe", Department = "IT", Position = "Manager"};
-
-            LoadEmployeeDataCommand = new Command(async () => await LoadEmployeeDataAsync());
-
-            Employees = new ObservableCollection<Employee>
-            {
-                new Employee { FirstName = "Paul", LastName = "Yumang", Department = "IT", Position = "Security Guard", IsActive = true },
-                new Employee { FirstName = "Lhizel", LastName = "Tabual", Department = "IT", Position = "Teacher", IsActive = false }
-            };
-        }
-
         public ObservableCollection<Employee> Employees { get; set; }
+        public ObservableCollection<Employee> Managers { get; set; }
+        public Command LoadEmployeeDataCommand { get; }
 
-        public string FullName
+        private List<Employee> allEmployees; // To store the full list of employees, including managers
+        private bool isManagerListVisible;
+
+        public bool IsManagerListVisible
         {
-            get => _fullname;
+            get => isManagerListVisible;
             set
             {
-                if (_fullname != value)
+                if (isManagerListVisible != value)
                 {
-                    _fullname = value;
-                    OnPropertyChanged(nameof(FullName));
+                    isManagerListVisible = value;
+                    OnPropertyChanged(nameof(IsManagerListVisible));
                 }
             }
         }
 
-        public ICommand LoadEmployeeDataCommand { get; }
-
-        private async Task LoadEmployeeDataAsync()
+        public EmployeeViewModel()
         {
-            await Task.Delay(1000); // I/O operation
-            FullName = $"{_employee.FirstName} {_employee.LastName}"; //Data Conversion for FirstName and LastName
+            // Initialize the full list of employees (with managers)
+            allEmployees = new List<Employee>
+        {
+            new Employee { FirstName = "Paul", LastName = "Yumang", Department = "IT", Position = "Security Guard", IsActive = true },
+            new Employee { FirstName = "Lhizel", LastName = "Tabual", Department = "IT", Position = "Teacher", IsActive = false },
+            new Employee { FirstName = "John", LastName = "Doe", Department = "Management", Position = "Manager", IsActive = true }
+        };
 
+            // Initialize the observable collections
+            Employees = new ObservableCollection<Employee>(allEmployees.Where(e => e.Position != "Manager"));
+            Managers = new ObservableCollection<Employee>();
+
+            // Hide managers by default
+            IsManagerListVisible = false;
+
+            // Command to load the managers when the button is pressed
+            LoadEmployeeDataCommand = new Command(ShowManagers);
         }
 
+        // Method to add only the managers to the Managers collection and show them
+        private void ShowManagers()
+        {
+            // Add managers only if the list is currently hidden
+            if (!IsManagerListVisible)
+            {
+                var managers = allEmployees.Where(e => e.Position == "Manager").ToList();
+
+                foreach (var manager in managers)
+                {
+                    // Only add managers if they aren't already in the list
+                    if (!Managers.Contains(manager))
+                    {
+                        Managers.Add(manager);
+                    }
+                }
+
+                // Show the managers list
+                IsManagerListVisible = true;
+            }
+        }
+
+        // Standard implementation for INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged(string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

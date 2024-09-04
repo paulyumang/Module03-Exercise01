@@ -10,8 +10,7 @@ namespace Module02Exercise01
 {
     public partial class App : Application
     {
-
-        private const string TestUrl = "https://www.reqbin.com";
+        private const string TestUrl = "https://www.example.com";
 
         public App()
         {
@@ -21,20 +20,35 @@ namespace Module02Exercise01
 
         protected override async void OnStart()
         {
+            // base.OnStart(); // No need to call base for OnStart in MAUI
+
             var current = Connectivity.NetworkAccess;
             bool isWebsiteReachable = await IsWebsiteReachable(TestUrl);
 
             if (current == NetworkAccess.Internet && isWebsiteReachable)
             {
-                MainPage = new LoginPage();  // Navigate to LoginPage if online
+                await Shell.Current.GoToAsync("//LoginPage");
+                Debug.WriteLine("Application Started (Online)");
             }
             else
             {
-                MainPage = new OfflinePage();  // Navigate to OfflinePage if offline
+                await Shell.Current.GoToAsync("//OfflinePage");
+                Debug.WriteLine("Application Started (Offline)");
             }
         }
 
-        public async Task<bool> IsWebsiteReachable(string url) // Change this to public
+        protected override void OnSleep()
+        {
+            Debug.WriteLine("Application Sleeping");
+        }
+
+        protected override void OnResume()
+        {
+            Debug.WriteLine("Application Resumed");
+        }
+
+        // Change the access modifier from private to public
+        public async Task<bool> IsWebsiteReachable(string url)
         {
             try
             {
@@ -50,5 +64,4 @@ namespace Module02Exercise01
             }
         }
     }
-
 }

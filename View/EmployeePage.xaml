@@ -2,43 +2,95 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Module02Exercise01.View.EmployeePage"
-             Title="EmployeePage">
+             Title="Employee Page">
 
-    <VerticalStackLayout Padding="10">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
 
-        <!--Label to bound to FullName property-->
-        <Label 
-            Text="{Binding FullName}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" 
-            FontSize="40"
-            FontAttributes="Bold"
-            Padding="30"
-        />
+            <!-- Title -->
+            <Label Text="Employee and Manager Directory"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Start"
+                   Margin="0,20"
+                   FontFamily="Arial" />
 
-        <Button
-            Text="Show Managers"
-            Command="{Binding LoadEmployeeDataCommand}"
-        />
+            <!-- Button to Show Managers -->
+            <Button
+                Text="Show Managers"
+                Command="{Binding LoadEmployeeDataCommand}"
+                HorizontalOptions="Center"
+                VerticalOptions="Start" 
+                Margin="0,10"
+                FontFamily="Arial"
+                BackgroundColor="#007AFF"
+                TextColor="White" />
 
-        <ListView ItemsSource="{Binding Employees}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Padding="10" Orientation="Vertical">
-                            <Label Text="{Binding FullNames}"
-                                   FontSize="18"
-                                   FontAttributes="Bold"
-                                   Margin="0,0,0,5" 
-                                   TextColor="White"/>
-                            <!-- Adjust margin as needed -->
-                            <Label Text="{Binding Position}"
-                                   FontSize="14"
-                                   TextColor="Gray" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </VerticalStackLayout>
+            <!-- Non-Manager Employees List -->
+            <Label Text="Employees"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   Margin="0,10"
+                   FontFamily="Verdana"
+                   TextColor="#333333" />
+
+            <CollectionView ItemsSource="{Binding Employees}" 
+                            VerticalOptions="FillAndExpand"
+                            Margin="0,10,0,20">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="10" Padding="10" Margin="0,10" BorderColor="#dddddd" BackgroundColor="#f7f7f7">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding FullNames}" 
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       Margin="0,0,0,5"
+                                       TextColor="#333333"
+                                       FontFamily="Verdana" />
+                                <Label Text="{Binding Position}"
+                                       FontSize="14"
+                                       TextColor="#666666"
+                                       FontFamily="Verdana" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Managers Section -->
+            <Label Text="Managers"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   Margin="0,10"
+                   FontFamily="Verdana"
+                   TextColor="#333333"
+                   IsVisible="{Binding IsManagerListVisible}" />
+
+            <CollectionView ItemsSource="{Binding Managers}" 
+                            VerticalOptions="FillAndExpand"
+                            Margin="0,10,0,20"
+                            IsVisible="{Binding IsManagerListVisible}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="10" Padding="10" Margin="0,10" BorderColor="#dddddd" BackgroundColor="#f7f7f7">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding FullNames}" 
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       Margin="0,0,0,5"
+                                       TextColor="#333333"
+                                       FontFamily="Verdana" />
+                                <Label Text="{Binding Position}"
+                                       FontSize="14"
+                                       TextColor="#666666"
+                                       FontFamily="Verdana" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

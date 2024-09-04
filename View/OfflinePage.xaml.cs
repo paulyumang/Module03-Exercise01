@@ -14,7 +14,7 @@ namespace Module02Exercise01.View
         {
             // Access the IsWebsiteReachable and Connectivity check from App class
             var current = Connectivity.NetworkAccess;
-            bool isWebsiteReachable = await ((App)Application.Current).IsWebsiteReachable("https://www.reqbin.com");
+            bool isWebsiteReachable = await ((App)Application.Current).IsWebsiteReachable("\"https://www.example.com");
 
             if (current == NetworkAccess.Internet && isWebsiteReachable)
             {

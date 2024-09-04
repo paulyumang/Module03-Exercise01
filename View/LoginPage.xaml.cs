@@ -4,23 +4,32 @@ namespace Module02Exercise01.View
     {
         public LoginPage()
         {
-            InitializeComponent();  // This method is generated during XAML compilation
+            InitializeComponent();
         }
 
         private async void OnLoginButtonClicked(object sender, EventArgs e)
         {
-            string enteredUsername = UsernameEntry.Text;
-            string enteredPassword = PasswordEntry.Text;
+            string username = UsernameEntry.Text;
+            string password = PasswordEntry.Text;
 
-            if (enteredUsername == "admin" && enteredPassword == "password123")
+            if (username == "admin" && password == "123")
             {
-                await Navigation.PushAsync(new EmployeePage());
+                try
+                {
+                    await Shell.Current.GoToAsync("//EmployeePage");
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", ex.Message, "OK");
+                }
+
             }
             else
             {
-                ErrorMessage.Text = "Invalid username or password. Please try again.";
-                ErrorMessage.IsVisible = true;
+                await DisplayAlert("Login Failed", "Invalid username or password. The username is admin  and password is 123", "OK");
             }
         }
+
     }
+
 }
