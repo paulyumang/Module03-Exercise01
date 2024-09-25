@@ -7,16 +7,11 @@ This repository contains the solution for Module03 Exercise01. Below are the det
 Here are the screenshots of the application:
 
 ### Screenshot 1:
-![Screenshot 1](./Screenshot/SS%20%231.png)
+![Screenshot 1](./Screenshot/SS%20%231.jpg)
 
 ### Screenshot 2:
-![Screenshot 2](./Screenshot/SS%20%232.png)
+![Screenshot 2](./Screenshot/SS%20%232.jpg)
 
-### Screenshot 3:
-![Screenshot 3](./Screenshot/SS%20%233.png)
-
-### Screenshot 4:
-![Screenshot 4](./Screenshot/SS%20%234.png)
 
 ## Student Information
 
