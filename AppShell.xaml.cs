@@ -10,6 +10,7 @@ namespace Module02Exercise01
 
             Routing.RegisterRoute("LoginPage", typeof(LoginPage));
             Routing.RegisterRoute("EmployeePage", typeof(EmployeePage));
+            Routing.RegisterRoute("AddEmployee", typeof(AddEmployee));
         }
     }
 }

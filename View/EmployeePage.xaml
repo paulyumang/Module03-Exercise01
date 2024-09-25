@@ -27,6 +27,16 @@
                 BackgroundColor="#007AFF"
                 TextColor="White" />
 
+            <!-- Button to Show Managers -->
+            <Button Text="Add Employee"
+                    Clicked="GoToAddEmployee"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start" 
+                    Margin="0,10"
+                    FontFamily="Arial"
+                    BackgroundColor="#007AFF"
+                    TextColor="White" />
+
             <!-- Non-Manager Employees List -->
             <Label Text="Employees"
                    FontSize="20"

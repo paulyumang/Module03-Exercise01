@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Module02Exercise01.View.AddEmployee"
+             Title="Add Employee">
+
+    <Grid>
+        <BoxView>
+            <BoxView.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#121212" Offset="0.0" />
+                    <GradientStop Color="#1E1E1E" Offset="1.0" />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <ScrollView>
+            <Frame Margin="20"
+                   Padding="15"
+                   BackgroundColor="#1E1E1E"
+                   CornerRadius="10"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="15">
+
+                    <!--Field for Firstname-->
+                    <Label Text="Firstname"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="White" />
+                    <Entry x:Name="FirstnameEntry" 
+                           Placeholder="Enter firstname" 
+                           BackgroundColor="#FFFFFF" 
+                           TextColor="#000" 
+                           HeightRequest="40" />
+
+                    <!--Field for Lastname-->
+                    <Label Text="Lastname"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="White" />
+                    <Entry x:Name="LastnameEntry" 
+                           Placeholder="Enter lastname" 
+                           BackgroundColor="#FFFFFF" 
+                           TextColor="#000" 
+                           HeightRequest="40" />
+
+                    <!--Field for Fullname-->
+                    <Label Text="Fullname"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="White" />
+                    <Entry x:Name="FullnameEntry" 
+                           Placeholder="Enter fullname" 
+                           BackgroundColor="#FFFFFF" 
+                           TextColor="#000" 
+                           HeightRequest="40" />
+
+                    <!--Field for Municipality-->
+                    <Label Text="Municipality"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="White" />
+                    <Label x:Name="AddressLabelMunicipality"
+                           Text="Address will appear here"
+                           VerticalOptions="Center"
+                           HorizontalOptions="FillAndExpand" 
+                           BackgroundColor="#333" 
+                           Padding="10"
+                           TextColor="White" />
+
+                    <!--Field for Province-->
+                    <Label Text="Province"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="White" />
+                    <Label x:Name="AddressLabelProvince"
+                           Text="Address will appear here"
+                           VerticalOptions="Center"
+                           HorizontalOptions="FillAndExpand" 
+                           BackgroundColor="#333" 
+                           Padding="10"
+                           TextColor="White" />
+
+                    <!--Field for Coordinates-->
+                    <Label Text="Coordinates"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="White" />
+                    <Label x:Name="AddressLabelCoordinates"
+                           Text="Address will appear here"
+                           VerticalOptions="Center"
+                           HorizontalOptions="FillAndExpand" 
+                           BackgroundColor="#333" 
+                           Padding="10"
+                           TextColor="White" />
+
+                    <Button Text="Get Location"
+                            Clicked="OnGetLocationClicked" 
+                            BackgroundColor="#007AFF" 
+                            TextColor="White" 
+                            HeightRequest="45" />
+
+                    <!--Field for Position-->
+                    <Label Text="Position"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="White" />
+                    <Entry x:Name="PositionnameEntry" 
+                           Placeholder="Enter your Position" 
+                           BackgroundColor="#FFFFFF" 
+                           TextColor="#000" 
+                           HeightRequest="40" />
+
+                    <!--Field for Department-->
+                    <Label Text="Department"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="White" />
+                    <Entry x:Name="DepartmentnameEntry" 
+                           Placeholder="Enter your Department" 
+                           BackgroundColor="#FFFFFF" 
+                           TextColor="#000" 
+                           HeightRequest="40" />
+
+                    <!--Show Employee Photo-->
+                    <Button Text="Capture Photo"
+                            Clicked="OnCapturePhotoClicked" 
+                            BackgroundColor="#FF3B30" 
+                            TextColor="White" 
+                            HeightRequest="45" />
+
+                    <Image x:Name="CaptureImage"
+                           HeightRequest="300"
+                           WidthRequest="200"
+                           Aspect="AspectFill" 
+                           HorizontalOptions="Center"
+                           VerticalOptions="Start" />
+                </VerticalStackLayout>
+            </Frame>
+        </ScrollView>
+    </Grid>
+</ContentPage>
